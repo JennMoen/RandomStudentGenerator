@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <h1>Welcome to the random student-picker program!  You better watch out, your name could get called at any moment!</h1>
+    <button onClick="getStudent()">Choose me a Victim!</button>
+    <script>
+
+    //make an array containing the names of all the students in the class
+    var studentNames = ["Fernando", "Alex P", "Alex R", "Nick", "Lanre", "Toyosi", "Jenny", "Jenn", "Mojeed"];
+
+    //make a function that the button click will trigger and cause a student to get generated
+    function getStudent() {
+
+        //get me a random number between 0 and the length of the array, which is 5 and round it down to the nearest whole number
+        var random = Math.floor(Math.random() * studentNames.length);
+
+        //console log this value just to make sure it's working the way we want it
+        console.log(random);
+
+        //use our "random" variable to fetch something from the array at a random index
+        var randomStudent = studentNames[random];
+
+        //console to make sure it's working out ok
+        console.log(randomStudent);
+
+        //make an alert that says whose name has been called
+        alert(randomStudent + " has been called on!");
+
+        //throw in some if/else logic based on whether the student has an answer or not!
+        var canAnswer = prompt(randomStudent + " , do you know the answer?").toLowerCase();
+
+        if (canAnswer == "yes") {
+            alert("Nice job!");
+        } else {
+            alert("That's ok, let's pick someone else");
+            getStudent();
+
+        }
+
+    }
+    </script>
+</body>
+
+</html>
