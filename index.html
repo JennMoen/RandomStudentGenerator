@@ -3,44 +3,66 @@
 
 <head>
     <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <h1>Welcome to the random student-picker program!  You better watch out, your name could get called at any moment!</h1>
-    <button onClick="getStudent()">Choose me a Victim!</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Random Student Generator</h3>
+                    </div>
+                    <div class="panel-body">
+                        With the click of a button, somebody's name will be chosen at random to answer a question. You better watch out, your name could get called at any moment!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success btn-lg" onClick="getStudent()">Choose me a Victim!</button>
+    </div>
     <script>
-
     //make an array containing the names of all the students in the class
-    var studentNames = ["Fernando", "Alex P", "Alex R", "Nick", "Lanre", "Toyosi", "Jenny", "Jenn", "Mojeed", "Adeel", "Alize", "Brandon", "Henry", "Kyle", "Terry", "Anita", "Daniel", "Jason", "Justin", "Mark", "Sade", "Will", "Batli", "Matt", "Sam"];
+    var studentNames = ["Fernando", "Alex P", "Alex R", "Nick", "Lanre", "Toyosi", "Jenny", "Jenn", "Mojeed", "Adeel", "Alize", "Brandon", "Henry", "Kyle", "Terry", "Anita", "Daniel", "Jason", "Justin", "Olivia", "Mark", "Sade", "Will", "Batli", "Matt", "Sam"];
 
     //make a function that the button click will trigger and cause a student to get generated
     function getStudent() {
 
-        //get me a random number between 0 and the length of the array, which is 5 and round it down to the nearest whole number
+        //get me a random number between 0 and the length of the array, which is 26 in this case, and round it down to the nearest whole number
         var random = Math.floor(Math.random() * studentNames.length);
-
-        //console log this value just to make sure it's working the way we want it
-        console.log(random);
 
         //use our "random" variable to fetch something from the array at a random index
         var randomStudent = studentNames[random];
 
-        //console to make sure it's working out ok
-        console.log(randomStudent);
-
         //make an alert that says whose name has been called
         alert(randomStudent + " has been called on!");
 
-        //throw in some if/else logic based on whether the student has an answer or not!
-        var canAnswer = prompt(randomStudent + " , do you know the answer?").toLowerCase();
+        //see if the student is in class today--if they are, ask them the question; otherwise, remove them from the array and pick somebody else
+        var isPresent = confirm("Is " + randomStudent + " here today?");
 
-        if (canAnswer == "yes") {
-            alert("Nice job!");
+        if (isPresent) {
+            //throw in some if/else logic based on whether the student has an answer or not!
+            var canAnswer = prompt(randomStudent + " , do you know the answer?").toLowerCase();
+            
+            //if they can answer, remove them from the array so they don't get called on again
+            if (canAnswer == "yes") {
+                alert("Nice job!");
+                studentNames.splice(random, 1);
+            } else {
+                alert("That's ok, let's pick someone else");
+                getStudent();
+
+            }
         } else {
-            alert("That's ok, let's pick someone else");
+            studentNames.splice(random, 1);
             getStudent();
-
         }
+
+
+
 
     }
     </script>
